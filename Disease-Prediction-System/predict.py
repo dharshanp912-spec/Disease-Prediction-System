@@ -1,19 +1,28 @@
 import pickle
+import numpy as np
 
-# Load Model
-model = pickle.load(open("model.pkl","rb"))
+# Load Saved Model
+model = pickle.load(open("model.pkl", "rb"))
 
-print("Disease Prediction System")
+print("=== Heart Disease Prediction ===")
 
 # User Input
-fever = int(input("Fever (0 or 1): "))
-cough = int(input("Cough (0 or 1): "))
-fatigue = int(input("Fatigue (0 or 1): "))
-
+age=int(input("Age: "))
+fever=int(input("Fever (0/1): "))
+cough=int(input("Cough (0/1): "))
+fatigue=int(input("Fatigue (0/1): "))
+chest_pain=int(input("Chest Pain (0/1): "))
+blood_pressure=int(input("Blood Pressure: "))
+cholesterol=int(input("Cholesterol Level: "))
+sugar_level=int(input("Sugar Level: "))
+# Store Input
+input_data=np.array([[age, fever, cough, fatigue,
+                        chest_pain, blood_pressure,
+                        cholesterol, sugar_level]])
 # Prediction
-result = model.predict([[fever,cough,fatigue]])
-
-if result[0] == 1:
-    print("\nDisease Detected")
+result=model.predict(input_data)
+# Output
+if result[0]==1:
+    print("\nHeart Disease Detected")
 else:
-    print("\nNo Disease Detected")
+    print("\nNo Heart Disease")
